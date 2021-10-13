@@ -23,6 +23,7 @@ import Search from "../components/Search";
 import Feature from "../components/Featured";
 import SearchData from "../components/SearchData";
 import color from "../config/color";
+import Stringn from "../config/Stringn";
 
 const Drawer = createDrawerNavigator();
 
@@ -41,7 +42,7 @@ const CustomDrawer = (props) => {
                     }}
                 >
                     <MaterialCommunityIcons name="home" size={32} color="white" />
-                    <Text style={{ color: color.white, fontSize: 32, fontWeight: "bold" }} >BETHEK</Text>
+                    <Text style={{ color: color.white, fontSize: 32, fontWeight: "bold" }} >{Stringn.name}</Text>
                 </View>
 
                 <DrawerItemList {...props} />
@@ -72,7 +73,7 @@ function HomeNavigation({ navigation }) {
                 name="Homes"
                 component={Home}
                 options={{
-                    headerTitle: "BETHEK",
+                    headerTitle: Stringn.name,
                     headerTitleAlign: "center",
                     headerStyle: {
                         backgroundColor: color.app,

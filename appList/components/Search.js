@@ -114,7 +114,6 @@ export default class Search extends Component {
                 placeholder="Search City e.g:- Islamabad, Rawalpindi"
                 placeholderTextColor="black"
               />
-              <View style={{ padding: 10 }} />
               <TextInput
                 style={styles.textInputStyle}
                 onChangeText={(text) => this.SearchHostel_Type(text)}
@@ -123,7 +122,6 @@ export default class Search extends Component {
                 placeholderTextColor="black"
                 placeholder="Search Hostel Type e.g:- Boy, Girl"
               />
-              <View style={{ padding: 10 }} />
               <TextInput
                 style={styles.textInputStyle}
                 onChangeText={(text) => this.Searchlocation(text)}
@@ -152,8 +150,6 @@ export default class Search extends Component {
             </View>
           }
 
-
-
           data={dataSource}
           renderItem={(data) => (
             <HomeListings {...data.item} navigation={this.props.navigation} />
@@ -173,14 +169,12 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingHorizontal: 10,
   },
-  textStyle: {
-    padding: 10,
-  },
   textInputStyle: {
     height: 40,
     borderWidth: 1,
     paddingLeft: 10,
     borderRadius: 80,
+    margin: 10,
     padding: 10,
     borderColor: "#009688",
     backgroundColor: "white",

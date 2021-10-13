@@ -7,6 +7,7 @@ import { StyleSheet, View, Text } from "react-native";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import color from "../config/color";
+import Stringn from "../config/Stringn";
 
 class Footer extends Component {
   render() {
@@ -22,10 +23,10 @@ class Footer extends Component {
               textAlign: "center",
             }}
           >
-            Bethek’s Services
+            {Stringn.name}
           </Text>
           <Text style={styles.footertext}>
-            Bethek is a platform to provide users find an accommodation of their
+            {Stringn.name} is a platform to provide users find an accommodation of their
             choice. The accommodation details come from various proprietors and
             owners. The user can search their preferable accommodation and
             contact directly with the proprietor/owner to lock the idea.

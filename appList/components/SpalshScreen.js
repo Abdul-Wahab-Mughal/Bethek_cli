@@ -1,15 +1,26 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 
 import React from 'react';
-import { Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 function SpalshScreen(props) {
     return (
-        <Image style={{ height: '100%', width: '100%' }}
-            source={require('../Team-Img/bethek.png')}
-        />
+        <View style={styles.container}>
+            <Image source={require('../Team-Img/bethek.png')} style={styles.splashImage} />
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    splashImage: {
+        height: '95%',
+        width: '95%',
+    },
+});
 
 export default SpalshScreen;

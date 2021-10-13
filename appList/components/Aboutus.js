@@ -6,6 +6,7 @@ import React from "react";
 import {
   StyleSheet, View, Text, SafeAreaView, ScrollView,
 } from "react-native";
+import Stringn from "../config/Stringn";
 
 import Footer from "./Footer";
 
@@ -14,11 +15,11 @@ function Aboutus() {
     <SafeAreaView>
       <ScrollView >
         <View>
-          <Text style={styles.Heading}>Welcome To Bethek</Text>
+          <Text style={styles.Heading}>Welcome To {Stringn.name}</Text>
         </View>
         <View>
           <Text style={styles.text}>
-            Bethek is a platform to provide users find an accommodation of
+            {Stringn.name} is a platform to provide users find an accommodation of
             their choice. The accommodation details come from various
             proprietors and owners. The user can search their preferable
             accommodation and contact directly with the proprietor/owner to
@@ -30,10 +31,12 @@ function Aboutus() {
         </View>
         <View>
           <Text style={styles.text}>
-            svbsdbfusdfhsdfjhsdufbsdbuvsdbsdbkvjhsdhvbsdkbvjhsdhvhsdbvbsdfhmvhsdhbsdjbsdhkbvjhsdhvbsdjhvbsdhvksdhbvjhsdfhvghsdfhvbsfhgrfbgjhsdfyjsfhfgbsfjkguksdfhvhsfvjsdfhhsdfhusdjsdfhhzxdfnbvjksfdbvjklgsfdgvsdfhsgkjsrbkgjsdfghuhsrkgbsdfbvjhsdfvbjkgjhsdfjhgbwsf
-            wssergsdrg jkser ksrk g hr kwe4b uirgherhsrh kwe sr hgwrh gsrhg
-            er8owhgrhguierhui gerb vsdfu werk hwerh berjhghr jwr sr hrwnb
-            bsdhbgwerjhb wbn{" "}
+            svbsd bfusdfh sdfjhsdufbs dbuv sdbsdbk vjhsdh vbsdkb vjhs dhvhsdbvbsdfhm vhsd
+            hb sdjbsd hkbvjhsd hvbsdjh vbsdhvksdh vjhsdfh vghsdfhv bsfhgrfb gjhsdfyjsfhfg
+            bsfjkguk sdfhvhsf vjsdfhh sdfhusdjs dfhh zxdfn bvjksfdbvjk lgsfdgv sdfhsgkjsrbk
+            gjsdf ghuhsrkg bsdfbvjhsdfvb kgjhsdfjhgbwsfwssergsdrg j kser ksrk g hr kwe4b
+            uirgherhsrh kwe sr hgwrh gsrhg er8owhgrhguierhui gerb vsdfu werk hwerh ber
+            jhghr jwr sr hrwnb bsdhbgwerjhb wbn{" "}
           </Text>
         </View>
         <View>
@@ -41,7 +44,7 @@ function Aboutus() {
         </View>
         <View>
           <Text style={styles.text}>
-            Bethek is a platform to provide users find an accommodation of
+            {Stringn.name} is a platform to provide users find an accommodation of
             their choice. The accommodation details come from various
             proprietors and owners. The user can search their preferable
             accommodation and contact directly with the proprietor/owner to
@@ -79,7 +82,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   text: {
-
+    textAlign: "justify",
+    paddingHorizontal: 10,
     fontSize: 16,
     borderBottomWidth: 0,
     borderTopWidth: 0,

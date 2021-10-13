@@ -11,6 +11,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Footer from "./Footer";
+import Stringn from "../config/Stringn";
 
 function Contactus() {
   return (
@@ -36,7 +37,7 @@ function Contactus() {
             <Ionicons name="home" size={20} color="green"> ORIC Office H-block room-12</Ionicons>
           </View>
           <View style={styles.mail}>
-            <Ionicons name="mail" size={20} color="red"> bethek.contact@gmail.com </Ionicons>
+            <Ionicons name="mail" size={20} color="red"> {Stringn.name}.contact@gmail.com </Ionicons>
           </View>
         </View>
 
