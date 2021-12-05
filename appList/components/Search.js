@@ -18,16 +18,20 @@ export default class Search extends Component {
       textcity: "",
       textlocation: "",
       texthostel_type: "",
+      textNear: "",
       dataSource: [],
       arrayholder: [],
       newData: [],
       newData1: [],
       newData2: [],
+      newData3: [],
+      serachfilterdata: [],
+      uniqueString: [],
     };
   }
 
   async componentDidMount() {
-    return fetch("http://3.135.209.144:8000/ep/hostels-all")
+    return fetch("http://hostels4u.com/ep/hostels-all")
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -38,11 +42,15 @@ export default class Search extends Component {
       })
       .catch((error) => {
         console.error(error);
-      });
+      })
+      .catch((error) => console.log("there is a error on internet : " + error));
   }
+
   SearchCity(textcity) {
     const Data = this.state.arrayholder.filter(function (item) {
-      const itemData = item.city ? item.city.toUpperCase() : "".toUpperCase();
+      const itemData = item.city
+        ? item.city.toUpperCase()
+        : "".toUpperCase();
 
       const textData = textcity.toUpperCase();
       return itemData.indexOf(textData) > -1;
@@ -53,6 +61,7 @@ export default class Search extends Component {
       newData: Data,
     });
   }
+
   SearchHostel_Type(texthostel_type) {
     const Data = this.state.arrayholder.filter(function (item) {
       const itemData = item.hostel_type
@@ -68,6 +77,7 @@ export default class Search extends Component {
       newData1: Data,
     });
   }
+
   Searchlocation(textlocation) {
     const Data = this.state.arrayholder.filter(function (item) {
       const itemData = item.location
@@ -83,17 +93,39 @@ export default class Search extends Component {
       newData2: Data,
     });
   }
+
+  SearchNear(textNear) {
+    const Data = this.state.arrayholder.filter(function (item) {
+      const itemData = item.nearby_universities
+        ? item.nearby_universities.toUpperCase()
+        : "".toUpperCase();
+
+      const textData = textNear.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+
+    this.setState({
+      textNear: textNear,
+      newData3: Data,
+    });
+  }
+
+  // Combin filter Search
   setdata() {
     this.setState({
       dataSource: [
-        ...this.state.newData1,
         ...this.state.newData,
+        ...this.state.newData1,
         ...this.state.newData2,
+        ...this.state.newData3,
       ],
     });
   }
+
+
   render() {
     const { dataSource } = this.state;
+
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 20 }}>
@@ -111,8 +143,8 @@ export default class Search extends Component {
                 onChangeText={(text) => this.SearchCity(text)}
                 value={this.state.textcity}
                 underlineColorAndroid="transparent"
-                placeholder="Search City e.g:- Islamabad, Rawalpindi"
                 placeholderTextColor="black"
+                placeholder="Search City e.g:- Islamabad, Rawalpindi"
               />
               <TextInput
                 style={styles.textInputStyle}
@@ -129,6 +161,14 @@ export default class Search extends Component {
                 underlineColorAndroid="transparent"
                 placeholderTextColor="black"
                 placeholder="Search location"
+              />
+              <TextInput
+                style={styles.textInputStyle}
+                onChangeText={(text) => this.SearchNear(text)}
+                value={this.state.textNear}
+                underlineColorAndroid="transparent"
+                placeholderTextColor="black"
+                placeholder="Search Near by university"
               />
               <View style={{ alignItems: "center", top: 30 }}>
                 <TouchableOpacity
@@ -162,6 +202,7 @@ export default class Search extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: "center",

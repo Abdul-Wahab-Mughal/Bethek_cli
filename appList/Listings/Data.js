@@ -84,10 +84,10 @@ export default Data = ({ route }) => {
           </View>
           <View style={styles.addresshead}>
             <Ionicons name="location" size={22} color="#000000" style={{}}>
-              <Text style={{ fontSize: 16 }}>{address}</Text>
+              <Text style={{ fontSize: 16 }}>{address},</Text>
             </Ionicons>
             <Text style={styles.address}>
-              {city} {location}
+              {city}, {location}
             </Text>
           </View>
 

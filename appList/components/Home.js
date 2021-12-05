@@ -21,7 +21,7 @@ class Home extends PureComponent {
   }
 
   async componentDidMount() {
-    return await fetch('http://3.135.209.144:8000/ep/hostels-all')
+    return await fetch('http://hostels4u.com/ep/hostels-all')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState(
@@ -33,7 +33,8 @@ class Home extends PureComponent {
             this.arrayholder = responseJson;
           }
         );
-      });
+      })
+      .catch((error) => console.log('there is a error on internet : ' + error));
   }
   SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function (item) {
@@ -60,7 +61,7 @@ class Home extends PureComponent {
     if (this.state.isLoading) {
       return (
         <View style={{ flex: 1, paddingTop: 0 }}>
-          <ActivityIndicator size="large" color="#10284e" />
+          <ActivityIndicator size="large" color={color.app} />
         </View>
       );
     }

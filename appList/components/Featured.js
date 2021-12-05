@@ -15,12 +15,12 @@ class Feature extends Component {
   };
 
   async componentDidMount() {
-    fetch("http://3.135.209.144:8000/ep/hostels-all")
+    fetch("http://hostels4u.com/ep/hostels-all")
       .then((res) => res.json())
       .then((resJson) => {
         this.setState({ Listings: resJson, loading: false });
       })
-      .catch((error) => console.log("there is a error on internet : " + error));
+      .catch((error) => console.log('there is a error on internet : ' + error));
   }
 
   render() {

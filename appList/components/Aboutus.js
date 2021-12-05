@@ -31,12 +31,11 @@ function Aboutus() {
         </View>
         <View>
           <Text style={styles.text}>
-            svbsd bfusdfh sdfjhsdufbs dbuv sdbsdbk vjhsdh vbsdkb vjhs dhvhsdbvbsdfhm vhsd
-            hb sdjbsd hkbvjhsd hvbsdjh vbsdhvksdh vjhsdfh vghsdfhv bsfhgrfb gjhsdfyjsfhfg
-            bsfjkguk sdfhvhsf vjsdfhh sdfhusdjs dfhh zxdfn bvjksfdbvjk lgsfdgv sdfhsgkjsrbk
-            gjsdf ghuhsrkg bsdfbvjhsdfvb kgjhsdfjhgbwsfwssergsdrg j kser ksrk g hr kwe4b
-            uirgherhsrh kwe sr hgwrh gsrhg er8owhgrhguierhui gerb vsdfu werk hwerh ber
-            jhghr jwr sr hrwnb bsdhbgwerjhb wbn{" "}
+            {Stringn.name} is a platform to provide users find an accommodation of
+            their choice. The accommodation details come from various
+            proprietors and owners. The user can search their preferable
+            accommodation and contact directly with the proprietor/owner to
+            lock the idea.
           </Text>
         </View>
         <View>

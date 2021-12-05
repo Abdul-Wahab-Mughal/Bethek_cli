@@ -4,21 +4,20 @@
 
 import React from "react";
 import {
-  StyleSheet, View, Text, ScrollView,
+  StyleSheet, View, Text, ScrollView, Image,
 } from "react-native";
 
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Footer from "./Footer";
-import Stringn from "../config/Stringn";
 
 function Contactus() {
   return (
     <ScrollView>
       <View>
         <View style={styles.Icon}>
-          <MaterialCommunityIcons name="home" size={150} color="black" />
+          <Image source={require('../Team-Img/HostelsDarkmode.png')} style={{ width: 150, height: 100 }} />
+
         </View>
 
         <View style={styles.page}>
@@ -37,7 +36,7 @@ function Contactus() {
             <Ionicons name="home" size={20} color="green"> ORIC Office H-block room-12</Ionicons>
           </View>
           <View style={styles.mail}>
-            <Ionicons name="mail" size={20} color="red"> {Stringn.name}.contact@gmail.com </Ionicons>
+            <Ionicons name="mail" size={20} color="red"> Hostels4U.contact@gmail.com </Ionicons>
           </View>
         </View>
 

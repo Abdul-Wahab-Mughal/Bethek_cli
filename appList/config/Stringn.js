@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
 
 export default {
-    name: 'Hostel4U',
+    name: 'Hostels4U',
 };

@@ -4,7 +4,7 @@
 
 import * as React from "react";
 import {
-    View, Text, StatusBar,
+    View, Text, StatusBar, Image,
 } from "react-native";
 import {
     createDrawerNavigator, DrawerContentScrollView, DrawerItemList,
@@ -13,7 +13,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import Feather from "react-native-vector-icons/Feather";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Data from "../Listings/Data";
 import Home from "../components/Home";
@@ -33,16 +32,14 @@ const CustomDrawer = (props) => {
             <DrawerContentScrollView {...props}>
                 <View
                     style={{
-                        flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "center",
-                        padding: 40,
+                        padding: 10,
                         top: -5,
                         backgroundColor: color.app,
                     }}
                 >
-                    <MaterialCommunityIcons name="home" size={32} color="white" />
-                    <Text style={{ color: color.white, fontSize: 32, fontWeight: "bold" }} >{Stringn.name}</Text>
+                    <Image source={require('../Team-Img/HostelsLightmode.png')} style={{ width: 150, height: 100 }} />
                 </View>
 
                 <DrawerItemList {...props} />

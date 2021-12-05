@@ -4,14 +4,14 @@
 import * as React from "react";
 
 import HomeStack from "./appList/routes/HomeStack";
-import SpalshScreen from "./appList/components/SpalshScreen";
+import SplashScreen from "./appList/components/SplashScreen";
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      component: <SpalshScreen />,
+      component: <SplashScreen />,
     };
   }
 
