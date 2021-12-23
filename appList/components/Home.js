@@ -11,7 +11,6 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import HomeListings from '../Listings/HomeListings';
 import color from '../config/color';
-import Footer from './Footer';
 
 class Home extends PureComponent {
   constructor(props) {
@@ -33,14 +32,14 @@ class Home extends PureComponent {
             this.arrayholder = responseJson;
           }
         );
+        //console.log(responseJson);
       })
       .catch((error) => console.log('there is a error on internet : ' + error));
   }
   SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function (item) {
-      const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
+      const itemData = item.title.includes(text) ? item : '';
+      return itemData;
     });
     this.setState({
       dataSource: newData,
@@ -48,13 +47,7 @@ class Home extends PureComponent {
   }
   ListViewItemSeparator = () => {
     return (
-      <View
-        style={{
-          height: 0.3,
-          width: '90%',
-          backgroundColor: '#fff',
-        }}
-      />
+      <View style={{ height: 0.3, width: '90%', backgroundColor: '#fff' }} />
     );
   };
   render() {
@@ -66,88 +59,61 @@ class Home extends PureComponent {
       );
     }
     return (
-      <FlatList
-        ListHeaderComponent={
-          <View style={styles.header}>
+      <View style={{ flex: 1, backgroundColor: color.white }}>
+        <FlatList
+          style={{ flex: 1 }}
+          ListHeaderComponent={
+            <View style={styles.header}>
+              <Text style={styles.TopText}>Search for Hostels</Text>
 
-            <Text style={styles.TopText}>
-              Search for Hostels
-            </Text>
+              {/* Search bar    */}
+              <View style={{ flexDirection: 'row', top: 25, left: 15 }}>
+                <View
+                  style={{
+                    borderRadius: 80,
+                    backgroundColor: '#fff',
+                    width: 220,
+                    flexDirection: 'row',
+                  }}
+                >
+                  <EvilIcons name="search" size={26} color="#A6A6A6" style={{ top: 10 }} />
+                  <TextInput
+                    style={styles.textInputStyle}
+                    onChangeText={(text) => this.SearchFilterFunction(text)}
+                    //value={this.state.text}
+                    placeholder="Search Here ..."
+                    placeholderTextColor="black"
+                  />
+                </View>
 
-            {/* Search bar    */}
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('Search')}
+                  style={{ backgroundColor: 'white', width: 40, left: 50, padding: 10, borderRadius: 100 }}>
+                  <Feather name={'filter'} size={22} />
+                </TouchableOpacity>
+              </View>
+              {/* Search Bar The End  */}
+            </View >
+          }
 
-            <TouchableOpacity
-              style={{
-                borderRadius: 80,
-                backgroundColor: '#fff',
-                position: 'absolute',
-                bottom: 50,
-                left: 30,
-                padding: 5,
-                color: '#A6A6A6',
-                flexDirection: 'row',
-              }}
-            >
-              <EvilIcons
-                name="search"
-                size={26}
-                color="#A6A6A6"
-                style={{
-                  justifyContent: 'flex-start',
-                  alignItems: 'center',
-                }}
-              />
-              <TextInput
-                style={styles.textInputStyle}
-                onChangeText={(text) => this.SearchFilterFunction(text)}
-                //value={this.state.text}
-                placeholder="Search Here ..."
-                placeholderTextColor="black"
-              />
-            </TouchableOpacity>
+          data={this.state.dataSource}
+          ItemSeparatorComponent={this.ListViewItemSeparator}
+          renderItem={(item) => (
+            <HomeListings {...item} navigation={this.props.navigation} key={item} />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          enableEmptySections={true}
 
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Search')}
-              style={{
-                backgroundColor: 'white',
-                width: 33,
-                padding: 5,
-                left: 225,
-                top: 25,
-                borderRadius: 100,
-              }}>
-              <Feather name={'filter'} size={22} />
-            </TouchableOpacity>
-            {/* Search Bar The End  */}
-          </View>
-        }
-
-
-
-
-
-        data={this.state.dataSource}
-        ItemSeparatorComponent={this.ListViewItemSeparator}
-        renderItem={(datas) => (
-          <HomeListings {...datas.item} navigation={this.props.navigation} key={datas.item} />
-        )}
-        keyExtractor={(item, index) => { return index.toString(); }}
-        enableEmptySections={true}
-
-
-
-
-        ListFooterComponent={
-          <Footer />
-        }
-      />
+        />
+      </View >
     );
   }
 }
 
 const styles = StyleSheet.create({
   header: {
-    padding: 80,
+    flex: 1,
+    height: 145,
     backgroundColor: color.app,
     borderBottomRightRadius: 70,
     borderBottomLeftRadius: 70,
@@ -155,20 +121,16 @@ const styles = StyleSheet.create({
   TopText: {
     color: '#fff',
     fontStyle: 'italic',
+    textAlign: 'center',
     fontSize: 20,
-    position: 'absolute',
-    left: 100,
-    right: 100,
-    top: 13,
-    paddingTop: 15,
+    paddingTop: 10,
   },
   textInputStyle: {
-    height: 30,
-    width: 220,
+    width: '100%',
     padding: 5,
     paddingLeft: 10,
     borderColor: '#009688',
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     borderRadius: 80,
     color: 'black',
   },

@@ -3,125 +3,57 @@
 /* eslint-disable quotes */
 
 import React from "react";
-import {
-  StyleSheet, View, Text, SafeAreaView, ScrollView,
-} from "react-native";
-import Stringn from "../config/Stringn";
+import { StyleSheet, View, Text } from "react-native";
+import color from "../config/color";
 
-import Footer from "./Footer";
+import Stringn from "../config/Stringn";
 
 function Aboutus() {
   return (
-    <SafeAreaView>
-      <ScrollView >
-        <View>
-          <Text style={styles.Heading}>Welcome To {Stringn.name}</Text>
-        </View>
-        <View>
-          <Text style={styles.text}>
-            {Stringn.name} is a platform to provide users find an accommodation of
-            their choice. The accommodation details come from various
-            proprietors and owners. The user can search their preferable
-            accommodation and contact directly with the proprietor/owner to
-            lock the idea.
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.Heading}>Our Mission</Text>
-        </View>
-        <View>
-          <Text style={styles.text}>
-            {Stringn.name} is a platform to provide users find an accommodation of
-            their choice. The accommodation details come from various
-            proprietors and owners. The user can search their preferable
-            accommodation and contact directly with the proprietor/owner to
-            lock the idea.
-          </Text>
-        </View>
-        <View>
-          <Text style={styles.Heading}>Our Core Principles</Text>
-        </View>
-        <View>
-          <Text style={styles.text}>
-            {Stringn.name} is a platform to provide users find an accommodation of
-            their choice. The accommodation details come from various
-            proprietors and owners. The user can search their preferable
-            accommodation and contact directly with the proprietor/owner to
-            lock the idea.
-          </Text>
-        </View>
+    <View style={{ flex: 1,backgroundColor:color.app }}>
+      <View style={styles.textborder}>
+        <Text style={styles.Heading}>Our Mission</Text>
+        <Text style={styles.text}>
+          {Stringn.name} is a platform to provide users find an accommodation of
+          their choice. The accommodation details come from various proprietors
+          and owners. The user can search their preferable accommodation and
+          contact directly with the proprietor / owner to lock the idea.
+        </Text>
 
-        <View style={{ paddingTop: 27 }}>
-          <Footer />
-        </View>
+        <Text style={styles.Heading}>Our Core Principles</Text>
+        <Text style={styles.text}>
+          {Stringn.name} is use for view hostel in less time. All hostel is in only
+          one plays. We will give all of hostel in this app.
+        </Text>
+      </View>
 
-      </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  footer: {
-    backgroundColor: "#20c997",
-    height: 70,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  picture: {
-    width: 150,
-    height: 150,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  container: {
-    backgroundColor: "#fff",
-    paddingTop: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   text: {
+    fontFamily: "Raleway-Regular",
     textAlign: "justify",
-    paddingHorizontal: 10,
-    fontSize: 16,
-    borderBottomWidth: 0,
-    borderTopWidth: 0,
-    justifyContent: "center",
-    alignItems: "center",
-    flexWrap: "wrap",
+    paddingHorizontal: 5,
+    fontSize: 18,
   },
-
   Heading: {
+    fontFamily: "AlfaSlabOne-Regular",
     textAlign: "center",
-    flexDirection: "column",
     color: "black",
     fontSize: 24,
-    justifyContent: "center",
-    fontWeight: "bold",
-    padding: 25,
+    padding: 15,
   },
-  title: {
-    textAlign: "center",
-    flexDirection: "column",
-    color: "white",
-    fontSize: 20,
-    justifyContent: "center",
-    fontWeight: "bold",
-  },
-  header: {
-    backgroundColor: "#10284e",
-    height: 100,
-    paddingTop: 38,
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  mainfooter: {
-    backgroundColor: "#10284e",
-    height: 30,
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "row",
+  textborder: {
+    flex: 1,
+    borderWidth: 5,
+    justifyContent:"center",
+    backgroundColor:color.white,
+    borderColor: color.black,
+    margin: 20,
+    paddingHorizontal: 10,
+    borderRadius: 100,
   },
 });
 

@@ -5,12 +5,11 @@
 /* eslint-disable quotes */
 
 import React, { useState, useEffect } from "react";
+import { Image, Text, View, StyleSheet, ScrollView, TouchableOpacity, Linking, Platform, Button } from "react-native";
 
-import {
-  Image, Text, View, StyleSheet, ScrollView, TouchableOpacity, Linking,
-} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 import Footer from "../components/Footer";
 import color from "../config/color";
 
@@ -42,13 +41,46 @@ export default Data = ({ route }) => {
 
   const [usercontact, setusercontact] = useState();
   const [username, setusername] = useState();
+
+  let uni = {
+    1: "CUST",
+    2: "NUML",
+    3: "IST",
+    4: "Foundation University",
+  };
+
+  // Display Universities
+  let u = [];
+  for (let i = 1; i < 5; i++) {
+    if (nearby_universities.includes(i)) {
+      u.push(uni[i]);
+    }
+  }
+
+  // Display Utitlites
+  let internet, food, laundry;
+  if (utilities.includes(1)) {
+    internet = <Text>Yes</Text>;
+  } else {
+    internet = <Text>No</Text>;
+  }
+  if (utilities.includes(2)) {
+    food = <Text>Yes</Text>;
+  } else {
+    food = <Text>No</Text>;
+  }
+  if (utilities.includes(3)) {
+    laundry = <Text>Yes</Text>;
+  } else {
+    laundry = <Text>No</Text>;
+  }
+
   useEffect(() => {
-    fetch(`http://3.135.209.144:8000/ep/owners-all/${owner}`)
+    fetch(`http://hostels4u.com/ep/owners-all/${owner}`)
       .then((resp) => resp.json())
       .then((data) => {
         setusercontact(data.phone);
-
-        fetch(`http://3.135.209.144:8000/ep/pusers-all/${data.user}`)
+        fetch(`http://hostels4u.com/ep/pusers-all/${data.user}`)
           .then((resp) => resp.json())
           .then((datas) => {
             setusername(datas.username);
@@ -59,11 +91,50 @@ export default Data = ({ route }) => {
       });
   });
 
+  // Change image list
+  let imageList = [
+    photo_main, photo_1, photo_2, photo_3, photo_4, photo_5, photo_6,
+  ];
+
+  const [currImage, setCurrImage] = useState(imageList[0]);
+
+  function next() {
+    let next_index, curr_index = imageList.indexOf(currImage);
+
+    if (imageList[curr_index + 1] === null) {
+      next_index = 0;
+      setCurrImage(imageList[next_index]);
+    } else {
+      next_index = curr_index + 1;
+      setCurrImage(imageList[next_index]);
+    }
+  }
+  function previous() {
+    let next_index, mt, curr_index = imageList.indexOf(currImage);
+
+    if (curr_index === 0) {
+      for (let count = imageList.length; count > 0; count--) {
+        if (imageList[count] === null) {
+          mt = count - 1;
+        }
+      }
+      setCurrImage(imageList[mt]);
+    } else {
+      next_index = curr_index - 1;
+      setCurrImage(imageList[next_index]);
+    }
+  }
 
   return (
     <ScrollView>
       <View>
-        <Image source={{ uri: photo_main }} style={styles.picture} />
+        <Image source={{ uri: currImage }} style={styles.picture} />
+        <TouchableOpacity onPress={previous} style={[styles.buttonpress, { left: 0 }]}>
+          <Text style={[styles.buttonimage, { borderBottomRightRadius: 15, borderTopRightRadius: 15 }]}>{"<"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={next} style={[styles.buttonpress, { right: 0 }]}>
+          <Text style={[styles.buttonimage, { borderBottomLeftRadius: 15, borderTopLeftRadius: 15 }]}>{">"}</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.container}>
@@ -75,125 +146,95 @@ export default Data = ({ route }) => {
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <Text style={{ fontSize: 20 }}>
               {hostel_type}
-              {"\n"}
             </Text>
             <Text style={styles.price}>
-              Rs: {price}
-              {"/-"}
+              Rs: {price} /-
             </Text>
           </View>
-          <View style={styles.addresshead}>
-            <Ionicons name="location" size={22} color="#000000" style={{}}>
-              <Text style={{ fontSize: 16 }}>{address},</Text>
+
+          {/*Location*/}
+          <TouchableOpacity style={styles.details} onPress={() => {
+            let phoneNumber = '';
+            if (Platform.OS === 'android') {
+              phoneNumber = `geo: `;
+            } else {
+              phoneNumber = `maps: `;
+            }
+            Linking.openURL(phoneNumber + { location });
+          }}>
+            <Ionicons name="location" size={22} color="black" >
+              <Text style={{ fontSize: 16 }}>{address}, {city},</Text>
             </Ionicons>
-            <Text style={styles.address}>
-              {city}, {location}
-            </Text>
-          </View>
-
+          </TouchableOpacity>
         </View>
+
         {/* Nearest Institution*/}
-        <View style={{ paddingTop: 30 }} />
-        <View style={styles.institutes}>
-          <Text style={{ fontSize: 20, fontWeight: "700" }}>
-            Nearby Institutions:
-          </Text>
-          <Text style={{ fontSize: 16 }}>{nearby_universities}</Text>
-        </View>
-        {/* Details */}
-        <View style={{ padding: 15 }} />
         <View style={styles.details}>
-          <Text style={{ fontSize: 20, fontWeight: "700" }}>Details: </Text>
-          <View
-            style={{
-              flexDirection: "column",
-            }}
-          >
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-evenly" }}
-            >
-              <MaterialCommunityIcons
-                name="bed"
-                size={20}
-                color="#000000"
-                style={{ position: "absolute", left: 70 }}
-              >
-                {" "}
-                Seater
-              </MaterialCommunityIcons>
+          <Text style={{ fontSize: 20, fontWeight: "700" }}>
+            Nearby Institutions :
+          </Text>
+          {u.map((univ) => (
+            <Text style={{ fontSize: 20 }}>{univ}</Text>
+          ))}
+        </View>
 
-              <Text style={{ fontSize: 18 }}>
-                {"                    "}|{"       "}
-                {seater}
-              </Text>
-            </View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+        {/* Details */}
+        <View style={styles.details}>
+          <Text style={{ fontSize: 20, fontWeight: "700" }}>Details : </Text>
+          <View style={{ flexDirection: "column", alignItems: "center" }}>
+            <MaterialCommunityIcons
+              name="bed"
+              size={20}
+              color="black"
             >
-              <MaterialCommunityIcons
-                name="shower"
-                size={20}
-                color="#000000"
-                style={{ position: "absolute", left: 70 }}
-              >
-                {" "}
-                Bathroom
-              </MaterialCommunityIcons>
+              {" "}Seater         |  {seater}
+            </MaterialCommunityIcons>
 
-              <Text style={{ fontSize: 18 }}>
-                {"                    "}|{"       "}
-                {bathrooms}
-              </Text>
-            </View>
+            <MaterialCommunityIcons
+              name="shower"
+              size={20}
+              color="black"
+            >
+              {" "}Bathroom   |  {bathrooms}
+            </MaterialCommunityIcons>
           </View>
         </View>
-        {/*  */}
+
         {/* Utilities */}
-        <View style={{ padding: 15 }} />
         <View style={styles.details}>
           <Text style={{ fontSize: 20, fontWeight: "700" }}> Utilities : </Text>
-          <View
-            style={{
-              flexDirection: "column",
-              paddingLeft: 25,
-            }}
-          >
-            <Text>{utilities}</Text>
+          <View style={{ flexDirection: "column", paddingLeft: 25 }}>
+            <Text style={{ fontSize: 20 }}>
+              <MaterialCommunityIcons name="wifi" size={24} color="#000000" />
+              {"  "}
+              Internet : {internet}
+            </Text>
+            <Text style={{ fontSize: 20 }}>
+              <Ionicons name="fast-food-outline" size={24} color="#000000" />
+              {"  "}
+              Food      : {food}
+            </Text>
+            <Text style={{ fontSize: 20 }}>
+              <MaterialCommunityIcons name="washing-machine" size={24} color="#000000" />
+              {"  "}
+              Laundry : {laundry}
+            </Text>
           </View>
         </View>
-        {/*  */}
-        {/* Discription */}
-        <View style={{ padding: 15 }} />
-        <View style={styles.discription}>
-          <Text style={{ fontSize: 20, paddingBottom: 5, fontWeight: "700" }}>
-            Discription:{" "}
-          </Text>
 
+        {/* Discription */}
+        <View style={styles.details}>
+          <Text style={{ fontSize: 20, paddingBottom: 5, fontWeight: "700" }}> Description : </Text>
           <Text style={{ fontSize: 16 }}>{description}</Text>
         </View>
+
         {/* Realtor */}
-        <View style={{ paddingTop: 30 }} />
-        <View style={styles.realtor}>
-          <Image
-            style={styles.picturerealtor}
-            source={require("../Team-Img/user.png")}
-          />
-          <Text
-            style={{
-              position: "absolute",
-              left: 120,
-              top: 25,
-              fontSize: 16,
-              fontWeight: "700",
-            }}
-          >
+        <View style={styles.details}>
+          <Image style={styles.picturerealtor} source={require("../Team-Img/user.png")} />
+          <Text style={{ position: "absolute", left: 120, top: 25, fontSize: 16, fontWeight: "700" }}>
             {username}
           </Text>
-          <Text
-            style={{ position: "absolute", left: 120, top: 45, fontSize: 14 }}
-          >
-            Realtor
-          </Text>
+          <Text style={{ position: "absolute", left: 120, top: 45, fontSize: 14 }}>Realtor</Text>
           {/* Call Button */}
           <TouchableOpacity
             onPress={() => {
@@ -218,39 +259,20 @@ export default Data = ({ route }) => {
           >
             <Ionicons name="md-call-sharp" size={28} color="#fff" />
           </TouchableOpacity>
-          <Text
-            style={{
-              position: "absolute",
-              right: 12,
-              bottom: 25,
-              fontSize: 14,
-            }}
-          >
-            Published On:
-          </Text>
-          <Text
-            style={{
-              position: "absolute",
-              right: 12,
-              bottom: 10,
-              fontSize: 14,
-            }}
-          >
-            {list_date}
-          </Text>
+          <View style={{ position: "absolute", right: 12, bottom: 10, fontSize: 14 }}>
+            <Text>Published On :</Text>
+            <Text>{list_date}</Text>
+          </View>
         </View>
       </View>
-      <View style={{ paddingTop: 30 }}>
-        <Footer />
-      </View>
+      <Footer />
     </ScrollView >
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: 26,
@@ -270,47 +292,31 @@ const styles = StyleSheet.create({
     height: 400,
     width: "100%",
   },
-  addresshead: {
-    padding: 15,
-    borderColor: "#000000",
-    borderRadius: 10,
-    borderWidth: 2,
-    flexDirection: "column",
-  },
-  address: {
-    fontSize: 16,
-    left: 23,
-  },
   details: {
+    marginVertical: 10,
     padding: 15,
     borderColor: "#000000",
-    borderRadius: 10,
+    borderRadius: 20,
     borderWidth: 2,
     flexDirection: "column",
-  },
-  discription: {
-    padding: 15,
-    borderColor: "#000000",
-    borderRadius: 10,
-    borderWidth: 2,
-  },
-  realtor: {
-    padding: 15,
-    borderColor: "#000000",
-    borderRadius: 10,
-    borderWidth: 2,
-    flexDirection: "row",
   },
   picturerealtor: {
     width: 80,
     height: 80,
     borderRadius: 50,
   },
-  institutes: {
-    padding: 15,
-    borderColor: "#000000",
-    borderRadius: 10,
-    borderWidth: 2,
-    flexDirection: "column",
+  buttonpress: {
+    position: "absolute",
+    height: "100%",
+    justifyContent: "center",
+  },
+  buttonimage: {
+    height: "20%",
+    width: 40,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: color.white,
+    backgroundColor: color.app,
+    fontSize: 48,
   },
 });
